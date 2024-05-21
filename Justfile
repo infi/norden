@@ -1,17 +1,13 @@
-BIN := "bin/norden"
-SOURCEFILES := "src/Gui.cpp src/View.cpp src/RectangleView.cpp src/ButtonView.cpp src/CompositeView.cpp src/TextView.cpp src/main.cpp"
-LIBS := `pkg-config cairo cairomm-1.0 pango pangomm-1.4 --libs --cflags` + " -lSDL2 -lGL -lGLEW"
-CFLAGS := "--std=c++23 -Wall -Wextra -Wpedantic"
-INCLUDES := "-Iinclude"
+BIN := "build/Norden"
 
 build: prep
-    clang++ {{INCLUDES}} {{CFLAGS}} {{LIBS}} {{SOURCEFILES}} -o {{BIN}} -g -DDEBUG  
+    cmake --build build
 
 prep:
-    mkdir -p bin
+    cmake -DCMAKE_BUILD_TYPE=Debug -G "Ninja" -B build -S .
 
 run: build
-    {{BIN}}
+    ./{{BIN}}
 
 valgrind: build
     valgrind --leak-check=full {{BIN}}
@@ -22,7 +18,8 @@ lldb: build
 gdb: build
     gdb {{BIN}}
 
-release: prep
-    clang++ {{INCLUDES}} {{CFLAGS}} {{LIBS}} {{SOURCEFILES}} -o {{BIN}} -O3 -DNDEBUG
+release:
+    cmake -DCMAKE_BUILD_TYPE=Release -G "Ninja" -B build -S .
+    cmake --build build
     strip {{BIN}}
     upx {{BIN}}

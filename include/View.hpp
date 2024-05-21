@@ -2,6 +2,7 @@
 
 #include "cairomm/context.h"
 #include "cairomm/refptr.h"
+#include <optional>
 #include <string>
 
 class View {

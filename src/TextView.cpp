@@ -10,7 +10,8 @@ void TextView::render(Cairo::RefPtr<Cairo::Context> &ctx) {
   auto layout = Pango::Layout::create(ctx);
   layout->set_width(this->width * Pango::SCALE);
   layout->set_height(this->height * Pango::SCALE);
-  auto font = Glib::ustring("Inter Variable Bold 16");
+  auto font =
+      Glib::ustring(std::format("{} {} {}", fontFamily, fontWeight, fontSize));
 
   Pango::FontDescription desc(font);
   layout->set_font_description(desc);
