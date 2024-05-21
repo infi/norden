@@ -35,7 +35,10 @@ void CompositeView::clear() { children.clear(); }
 std::string CompositeView::stringify() {
   std::string result = "CompositeView(";
   for (auto &child : children) {
-    result += child->stringify() + ", ";
+    result += child->stringify();
+    if (&child != &children.back()) {
+      result += ", ";
+    }
   }
   result += ")";
   return result;

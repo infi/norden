@@ -18,6 +18,7 @@ public:
   void add(std::shared_ptr<View> view);
   void remove(std::shared_ptr<View> view);
   void clear();
+  std::vector<std::shared_ptr<View>> get_children() { return children; }
   std::string stringify() override;
 
   ~CompositeView() { clear(); }

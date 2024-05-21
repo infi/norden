@@ -31,4 +31,5 @@ public:
   void render(Cairo::RefPtr<Cairo::Context> &ctx) override;
   void click(int globalX, int globalY) override;
   std::string stringify() override;
+  void set_text(std::string text) { this->text = text; }
 };
